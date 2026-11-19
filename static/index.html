@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <title>群消息阅览</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="static/style.css">
+    <script src="static/app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar" id="topbar">
+      <div class="topbar-inner">
+        <h1>群消息阅览</h1>
+        <button class="btn" id="open-rules" type="button" aria-haspopup="dialog">
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4h7M13 4h1M2 12h1M7 12h7"/><circle cx="11" cy="4" r="2"/><circle cx="5" cy="12" r="2"/></svg>
+          <span>规则</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="page">
+      <div class="notice" id="notice" role="alert" hidden></div>
+      <main id="reader" aria-busy="true" aria-label="按接收顺序排列的消息记录">
+        <div class="edge" id="edge-older"></div>
+        <div class="empty" id="empty" hidden></div>
+        <div class="log-list" id="log-list"></div>
+        <div class="edge" id="edge-newer"></div>
+      </main>
+    </div>
+
+    <main class="login" id="login" hidden>
+      <form class="login-card" id="login-form">
+        <h1>群消息阅览</h1>
+        <p>请输入访问密码</p>
+        <input class="field" id="login-password" name="password" type="password" autocomplete="current-password" required aria-label="访问密码" enterkeyhint="go">
+        <p class="login-error" id="login-error" role="alert" hidden></p>
+        <button class="btn btn-primary" type="submit">登录</button>
+      </form>
+    </main>
+
+    <dialog class="sheet" id="rules-dialog" aria-labelledby="rules-title">
+      <div class="sheet-inner">
+        <form class="sheet-head" method="dialog">
+          <div>
+            <h2 id="rules-title">监听规则</h2>
+            <p>修改立即生效，只影响之后收到的消息。</p>
+          </div>
+          <button class="icon-btn" type="submit" aria-label="关闭">
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4.5 4.5l9 9M13.5 4.5l-9 9"/></svg>
+          </button>
+        </form>
+        <div class="tabs" role="tablist" aria-label="规则类型">
+          <button class="tab" type="button" role="tab" data-kind="watch" aria-controls="rule-panel">关注词<span class="n"></span></button>
+          <button class="tab" type="button" role="tab" data-kind="ignore" aria-controls="rule-panel">屏蔽词<span class="n"></span></button>
+          <button class="tab" type="button" role="tab" data-kind="user" aria-controls="rule-panel">关注用户<span class="n"></span></button>
+          <button class="tab" type="button" role="tab" data-kind="block" aria-controls="rule-panel">屏蔽用户<span class="n"></span></button>
+        </div>
+        <section class="panel" id="rule-panel" role="tabpanel">
+          <p class="hint" id="rule-hint"></p>
+          <form class="add-form" id="rule-form" autocomplete="off">
+            <input class="field" id="rule-value" maxlength="2000" aria-label="规则内容" enterkeyhint="done">
+            <input class="field field-note" id="rule-note" maxlength="64" placeholder="备注（可选），如对方昵称" aria-label="备注" enterkeyhint="done">
+            <button class="btn btn-primary" type="submit">添加</button>
+          </form>
+          <ul class="rule-list" id="rule-list"></ul>
+          <p class="rule-empty" id="rule-empty" hidden></p>
+        </section>
+      </div>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    <noscript>请启用 JavaScript 以查看消息记录。</noscript>
+  </body>
+</html>
